@@ -1,4 +1,5 @@
 import React from "react";
+import CollectionItem from "../collection-item/collection-item.component";
 
 import './collection-preview.styles.scss'
 
@@ -11,8 +12,8 @@ const CollectionPreview = ({ title, items }) => (
             
             // filters through items in Shop_data so it only displays 4 items as a preview
                 .filter((item, idx) => idx < 4)
-                .map((item) => (
-                    <div key={item.id}>{item.name}</div>
+                .map(({id, ...OtherItemProps}) => (
+                    <CollectionItem key={id} {...OtherItemProps} />
                 ))
             }
         </div>
