@@ -50,7 +50,7 @@ class Directory extends React.Component {
         return (
             <div className="directory-menu">
 
-                {/* Map through sections to send Id, title, image, url to homepage */}   
+                {/* Map through state sections to send Id, title, image, url to menu item component on Homepage */}   
                 {
                     this.state.sections.map(({ id, ...otherSectionProps}) => (
                         <MenuItem key={id} {...otherSectionProps} />
