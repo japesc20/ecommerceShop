@@ -1,0 +1,27 @@
+.sign-in {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  form {
+    width: 20vw;
+
+    .signin-button{
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  .submit-button {
+    display: flex;
+    margin: auto;
+  }
+
+  .register {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+  }
+}

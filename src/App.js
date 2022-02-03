@@ -1,7 +1,10 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+import Header from './components/header/header.component'
 import HomePage from './pages/homepage.components'
 import ShopPage from './pages/shop/shop.component'
+import SignIn from './pages/signin/signin.component';
+import Register from './pages/register/register.component';
 
 import './App.css';
 
@@ -9,10 +12,13 @@ import './App.css';
 function App() {
 
   return (
-    <div>
+    <div className='app-container'>
+      <Header />
       <Routes>
-        <Route exact path='/' element={<HomePage/>} />
-        <Route exact path='/shop' element={<ShopPage/>} />
+        <Route exact path='/' element={<HomePage />} />
+        <Route exact path='/shop' element={<ShopPage />} />
+        <Route exact path='/signIn' element={<SignIn />} />
+        <Route exact path='/register' element={<Register />} />
       </Routes>
     </div>
   );
