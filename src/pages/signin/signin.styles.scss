@@ -7,9 +7,11 @@
   form {
     width: 20vw;
 
-    .signin-button{
+    .sign-in-button{
       display: flex;
+      flex-direction: column;
       justify-content: center;
+      align-items: center;
     }
   }
 
