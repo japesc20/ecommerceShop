@@ -11,7 +11,7 @@ import './header.styles.scss'
 const Header = ({ currentUser }) => ( 
   <div className='header'>
     <Link to="/" className='logo-container'>
-      <img src={LogoFema} className="logo" />
+      <img src={LogoFema} className="logo" alt="Fema Shop logo" />
     </Link> 
     <div className="options">
       <Link to="/Shop" className='header-link'>Shop</Link>

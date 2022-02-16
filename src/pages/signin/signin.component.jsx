@@ -8,15 +8,16 @@ import "./signin.styles.scss"
 
 const SignIn = () => {
 
-  const [state, setState] = useState({
+  const [values, setValues] = useState({
     email: "",
     password: ""
   })
 
 const handleChange = e => {
-  setState({
-    ...state,
-    [e.target.name]: e.target.value
+  const { name, value } = e.target;
+  setValues({
+    ...values,
+    [name]: value
   });
 };
 
@@ -30,7 +31,7 @@ const handleChange = e => {
         <FormInput 
           name="email" 
           type="email" 
-          value={state.email} 
+          value={values.email} 
           handleChange={handleChange}
           label="Email"
           required />
@@ -38,7 +39,7 @@ const handleChange = e => {
         <FormInput 
           name="password" 
           type="password" 
-          value={state.password} 
+          value={values.password} 
           handleChange={handleChange}
           label="Password"
           required />
