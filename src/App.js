@@ -31,12 +31,9 @@ function App() {
               id: snapShot.id,
               ...snapShot.data()
             }
-          });
-          
-          console.log(state)
-        })
+          })
+          })
       }
-
         setState({ currentUser: userAuth })
     });
 

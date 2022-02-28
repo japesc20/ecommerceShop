@@ -20,7 +20,7 @@ const Register = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-
+    
     const { displayName, email, password, confirmPassword } = values;
 
     if (password !== confirmPassword) {

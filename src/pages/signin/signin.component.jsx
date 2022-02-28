@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
 import FormInput from '../../components/form-input/form-input.component'
 import CustomButton from '../../components/custom-button/custom-button.component';
-import { signInWithGoogle } from '../../firebase/firebase.utils'
+import { auth, signInWithGoogle } from '../../firebase/firebase.utils'
 
 import "./signin.styles.scss"
 
@@ -13,20 +13,37 @@ const SignIn = () => {
     password: ""
   })
 
-const handleChange = e => {
-  const { name, value } = e.target;
-  setValues({
-    ...values,
-    [name]: value
-  });
-};
+  const handleSubmit = async e => {
+    e.preventDefault();
+
+    const { email, password } = values;
+
+    try {
+      await auth.signInWithEmailAndPassword(email, password)
+      setValues({
+        email: "",
+        password: ""
+      })
+
+    } catch(error) {
+      console.error(error)
+    }
+  }
+
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setValues({
+      ...values,
+      [name]: value
+    });
+  };
 
   return ( 
     <div className='sign-in'>
       <h1>Login to your account</h1>
       <span>Sign in with your email and password</span>
 
-      <form>
+      <form onSubmit={handleSubmit}>
 
         <FormInput 
           name="email" 
