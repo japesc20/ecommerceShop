@@ -46,7 +46,7 @@ function App() {
 
   return (
     <div className='app-container'>
-      <Header currentUser={state.currentUser} />
+      <Header />
       <Routes>
         <Route exact path='/' element={<HomePage />} />
         <Route exact path='/shop' element={<ShopPage />} />
