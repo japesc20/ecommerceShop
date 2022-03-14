@@ -1,46 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+
+import { connect } from 'react-redux'
+import { createStructuredSelector } from 'reselect';
+
+import { selectCurrentUser } from './redux/user/user.selectors';
+import { checkUserSession } from './redux/user/user.actions';
+
 import Header from './components/header/header.component'
 import HomePage from './pages/homepage.components'
 import ShopPage from './pages/shop/shop.component'
 import SignIn from './pages/signin/signin.component';
 import Register from './pages/register/register.component';
-import { auth, createUserProfileDocument } from './firebase/firebase.utils'
+
 
 import './App.css';
 
 
-function App() {
-
-  const [state, setState] = useState({
-    currentUser: null
-  })
-
-  let unsubsribeFromAuth = null;
+const App = ({ checkUserSession, currentUser }) => {
   
-
   useEffect(() => {
-    unsubsribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
-
-        userRef.onSnapshot(snapShot => {
-          setState({
-            currentUser: {
-              id: snapShot.id,
-              ...snapShot.data()
-            }
-          })
-          })
-      }
-        setState({ currentUser: userAuth })
-    });
-
-    return () => {
-      unsubsribeFromAuth()
-    }
-  }, [])
+    checkUserSession();
+  }, [checkUserSession])
 
 
 
@@ -50,11 +31,22 @@ function App() {
       <Routes>
         <Route exact path='/' element={<HomePage />} />
         <Route exact path='/shop' element={<ShopPage />} />
-        <Route exact path='/signIn' element={<SignIn />} />
+        <Route exact path='/signIn' element={<SignIn currentUser={currentUser} />} />
         <Route exact path='/register' element={<Register />} />
       </Routes>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser
+})
+
+const mapDispatchToProps = dispatch => ({
+  checkUserSession: () => dispatch(checkUserSession())
+})
+
+export default connect(
+  mapStateToProps, 
+  mapDispatchToProps
+  )(App);

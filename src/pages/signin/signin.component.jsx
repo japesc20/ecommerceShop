@@ -2,40 +2,34 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
 import FormInput from '../../components/form-input/form-input.component'
 import CustomButton from '../../components/custom-button/custom-button.component';
-import { auth, signInWithGoogle } from '../../firebase/firebase.utils'
+
+import { signInWithGoogle } from '../../firebase/firebase.utils'
+import { connect } from 'react-redux';
+
+import { googleSignInStart, emailSignInStart } from '../../redux/user/user.actions';
 
 import "./signin.styles.scss"
 
-const SignIn = () => {
 
-  const [values, setValues] = useState({
-    email: "",
-    password: ""
-  })
 
-  const handleSubmit = async e => {
-    e.preventDefault();
+const SignIn = ({ emailSignInStart, googleSignInStart }) => { // Destructure off this props here (this.props)
+  const [userCredentials, setCredentials] = useState({
+    email: '', 
+    password: ''
+  });
 
-    const { email, password } = values;
+  const { email, password } = userCredentials;
 
-    try {
-      await auth.signInWithEmailAndPassword(email, password)
-      setValues({
-        email: "",
-        password: ""
-      })
+  const handleSubmit = async event => {
+    event.preventDefault();
 
-    } catch(error) {
-      console.error(error)
-    }
-  }
+    emailSignInStart(email, password);
+  };
 
-  const handleChange = e => {
-    const { name, value } = e.target;
-    setValues({
-      ...values,
-      [name]: value
-    });
+  const handleChange = event => {
+    const { value, name } = event.target;
+
+    setCredentials({...userCredentials, [name]: value });
   };
 
   return ( 
@@ -48,7 +42,7 @@ const SignIn = () => {
         <FormInput 
           name="email" 
           type="email" 
-          value={values.email} 
+          value={email} 
           handleChange={handleChange}
           label="Email"
           required />
@@ -56,7 +50,7 @@ const SignIn = () => {
         <FormInput 
           name="password" 
           type="password" 
-          value={values.password} 
+          value={password} 
           handleChange={handleChange}
           label="Password"
           required />
@@ -79,4 +73,9 @@ const SignIn = () => {
     </div>
   )};
 
-export default SignIn;
+  const mapDispatchToProps = dispatch => ({
+    googleSignInStart: () => dispatch(googleSignInStart()),
+    emailSignInStart: (email, password) => dispatch(emailSignInStart({email, password}))
+  })
+
+export default connect(null, mapDispatchToProps)(SignIn);
