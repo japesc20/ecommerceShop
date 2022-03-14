@@ -12,6 +12,7 @@ import HomePage from './pages/homepage.components'
 import ShopPage from './pages/shop/shop.component'
 import SignIn from './pages/signin/signin.component';
 import Register from './pages/register/register.component';
+import Banner from './components/banner/banner.component';
 
 
 import './App.css';
@@ -29,7 +30,8 @@ const App = ({ checkUserSession, currentUser }) => {
     <div className='app-container'>
       <Header />
       <Routes>
-        <Route exact path='/' element={<HomePage />} />
+        {/* <Route exact path='/' element={<HomePage />} /> */}
+        <Route exact path='/' element={<Banner />} />
         <Route exact path='/shop' element={<ShopPage />} />
         <Route exact path='/signIn' element={<SignIn currentUser={currentUser} />} />
         <Route exact path='/register' element={<Register />} />
